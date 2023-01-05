@@ -228,7 +228,7 @@ class IncrementDecrementButton @JvmOverloads constructor(
         btnDecrement.setOnClickListener {
             previousValue = value
             value--
-//            onDecrementRangeCheck()
+            onDecrementRangeCheck()
             changeCallback?.invoke(value)
         }
         btnText.setOnClickListener {
@@ -324,7 +324,7 @@ class IncrementDecrementButton @JvmOverloads constructor(
         private const val DEFAULT_MAX_VALUE = 10
     }
 
-    public fun setOnChange(callback: (Int) -> Unit) {
+    fun setOnChange(callback: (Int) -> Unit) {
         changeCallback = callback
     }
 

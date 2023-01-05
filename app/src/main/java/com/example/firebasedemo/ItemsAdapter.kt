@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firebasedemo.databinding.ItemSkuBinding
 
-class ItemsAdapter(val callback: (newValue: Int, sku: Sku) -> Unit) :
+class ItemsAdapter(val callback: (newValue: Int, sku: Sku,position:Int) -> Unit) :
     ListAdapter<Sku, ItemsAdapter.ItemsViewHolder>(
         object : DiffUtil.ItemCallback<Sku>() {
             override fun areItemsTheSame(oldItem: Sku, newItem: Sku): Boolean {
@@ -21,45 +21,43 @@ class ItemsAdapter(val callback: (newValue: Int, sku: Sku) -> Unit) :
     ) {
     inner class ItemsViewHolder(private val binding: ItemSkuBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Sku?) {
+        fun bind(item: Sku?, position: Int) {
             binding.tvSkuName.text = item?.name
-//            binding.incDecLactationBtn.setMiddleText(item!!.quantity.toString())
-//            binding.incDecLactationBtn.setOnChange {
+            binding.incDecLactationBtn.setMiddleText(item!!.quantity.toString())
+            binding.incDecLactationBtn.setOnChange {
+                callback.invoke(it,item,position)
+            }
+
+//            item?.quantity?.let {
+//                binding.tilQuantity.editText?.setText(item.quantity.toString())
+//            }
+//            binding.btnInc.setOnClickListener {
+//                binding.tilQuantity.editText?.setText(
+//                    binding.tilQuantity.editText?.text.toString().toInt().plus(1).toString()
+//                )
 //                if (item != null) {
-//                    callback.invoke(it,item)
+//                    callback.invoke(
+//                        binding.tilQuantity.editText?.text.toString().toInt(),
+//                        item
+//                    )
 //                }
 //            }
-
-            item?.quantity?.let {
-                binding.tilQuantity.editText?.setText(item.quantity.toString())
-            }
-            binding.btnInc.setOnClickListener {
-                binding.tilQuantity.editText?.setText(
-                    binding.tilQuantity.editText?.text.toString().toInt().plus(1).toString()
-                )
-                if (item != null) {
-                    callback.invoke(
-                        binding.tilQuantity.editText?.text.toString().toInt(),
-                        item
-                    )
-                }
-            }
-
-
-
-            binding.btnDec.setOnClickListener {
-                if (binding.tilQuantity.editText?.text.toString().toInt() > 0) {
-                    binding.tilQuantity.editText?.setText(
-                        binding.tilQuantity.editText?.text.toString().toInt().minus(1).toString()
-                    )
-                    if (item != null) {
-                        callback.invoke(
-                            binding.tilQuantity.editText?.text.toString().toInt(),
-                            item
-                        )
-                    }
-                }
-            }
+//
+//
+//
+//            binding.btnDec.setOnClickListener {
+//                if (binding.tilQuantity.editText?.text.toString().toInt() > 0) {
+//                    binding.tilQuantity.editText?.setText(
+//                        binding.tilQuantity.editText?.text.toString().toInt().minus(1).toString()
+//                    )
+//                    if (item != null) {
+//                        callback.invoke(
+//                            binding.tilQuantity.editText?.text.toString().toInt(),
+//                            item
+//                        )
+//                    }
+//                }
+//            }
         }
     }
 
@@ -70,7 +68,7 @@ class ItemsAdapter(val callback: (newValue: Int, sku: Sku) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: ItemsViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position),position)
     }
 
 }

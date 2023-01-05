@@ -5,8 +5,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.firebasedemo.databinding.ActivityCardDetailBinding
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -78,12 +76,13 @@ class CardDetailActivity : AppCompatActivity() {
                             )
                         )
                     }
-                    adapter = ItemsAdapter() { newQuantity, sku ->
+                    adapter = ItemsAdapter() { newQuantity, sku,position ->
                         val quantityMap = mutableMapOf<String, Any>()
                         quantityMap["quantity"] = newQuantity
                         collectionRef.document(customerId).collection("skuDetails")
                             .document(sku.name).update(quantityMap).addOnCompleteListener {
-                                getSkus()
+                                list.find { it.name==sku.name }?.quantity=newQuantity
+                                adapter.notifyItemChanged(position)
                             }
                     }
                     binding.rvCartItems.adapter = adapter
