@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FirebaseDemo</string>
+    <string name="customer_id">customer id</string>
+    <string name="submit_text">Submit</string>
+    <string name="add_sku">Add sku</string>
+    <string name="quantity">quantity</string>
 </resources>

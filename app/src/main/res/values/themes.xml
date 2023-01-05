@@ -13,4 +13,24 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <declare-styleable name="IncrementDecrementButton">
+        <attr format="integer" name="fontSizeRes"/>
+        <attr format="reference" name="fontFamilyRes"/>
+        <attr format="string" name="decrementText"/>
+        <attr format="string" name="incrementText"/>
+        <attr format="string" name="middleText"/>
+        <attr format="dimension" name="cornerRadius"/>
+        <attr format="color" name="borderStrokeColor"/>
+        <attr format="color" name="textColor"/>
+        <attr format="integer" name="borderStrokeWidth"/>
+        <attr format="integer" name="maxValue"/>
+        <attr format="reference" name="buttonBackground"/>
+        <attr format="enum" name="animationType">
+            <enum name="FADE" value="2"/>
+            <enum name="HORIZONTAL" value="1"/>
+            <enum name="VERTICAL" value="0"/>
+        </attr>
+        <attr format="integer" name="animationDuration"/>
+    </declare-styleable>
 </resources>
